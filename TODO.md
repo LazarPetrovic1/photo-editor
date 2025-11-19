@@ -7,3 +7,4 @@
 + Fill with colour
 + Blur parts of image
 + Resize to custom height & width
++ Export and save img
