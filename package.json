@@ -1,22 +1,33 @@
 {
   "name": "photo-editor",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
+  "author": "LazarPetrovic1",
+  "description": "Electron-based photo and image editor",
+  "homepage": "./",
+  "main": "main.js",
   "dependencies": {
     "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.0",
     "@testing-library/user-event": "^13.5.0",
+    "minimist": "^1.2.8",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-scripts": "5.0.1",
+    "semver": "^7.7.3",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "concurrently \"cross-env BROWSER=none npm run start:react\" \"wait-on http://127.0.0.1:3000 && cross-env NODE_ENV=development electron .\"",
+    "start:react": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "package": "cross-env INLINE_RUNTIME_CHUNK=false NODE_ENV=production electron-builder",
+    "serve": "serve -s build",
+    "patch": "node update-version.js --type patch",
+    "major": "node update-version.js --type major",
+    "minor": "node update-version.js --type minor",
+    "prod": "npm run build && npm run package"
   },
   "eslintConfig": {
     "extends": [
@@ -35,5 +46,35 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "build": {
+    "appId": "com.photoeditor.fixer",
+    "extends": null,
+    "productName": "Fixer - Photo Editor",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "build/**/*",
+      "main.js",
+      "package.json",
+      "icon.png",
+      ".env",
+      "preload.js"
+    ],
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    }
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1",
+    "cross-env": "^10.1.0",
+    "electron": "^39.1.0",
+    "electron-builder": "^26.0.12",
+    "electron-debug": "^4.1.0",
+    "electron-devtools-installer": "^4.0.0",
+    "serve": "^14.2.5",
+    "wait-on": "^9.0.1"
   }
 }

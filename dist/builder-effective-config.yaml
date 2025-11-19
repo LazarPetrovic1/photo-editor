@@ -1,0 +1,18 @@
+directories:
+  output: dist
+  buildResources: build
+appId: com.photoeditor.fixer
+extends: null
+productName: Fixer - Photo Editor
+files:
+  - filter:
+      - build/**/*
+      - main.js
+      - package.json
+      - icon.png
+      - .env
+      - preload.js
+nsis:
+  oneClick: false
+  allowToChangeInstallationDirectory: true
+electronVersion: 39.1.0
