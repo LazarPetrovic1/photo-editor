@@ -9,7 +9,7 @@ const liStyles = {
 }
 
 function SideBarItem({ onClick, children }) {
-  return <li style={liStyles} onClick={onClick}>{children}</li>;
+  return <li className="side-li" onClick={onClick}>{children}</li>;
 }
 
 export default SideBarItem

@@ -4,7 +4,7 @@
 + ~~Text~~
 + ~~Freeform draw~~
 + ~~Blank canvas image~~
-+ Fill with colour
-+ Blur parts of image
++ ~~Add rectangle & circle~~
++ ~~Blur parts of image~~
 + Resize to custom height & width
-+ Export and save img
++ ~~Export and save img~~

@@ -68,6 +68,8 @@ body {
 .crop-controls,
 .filter-controls,
 .text-controls,
+.shapes-controls,
+.blur-controls,
 .draw-controls {
   position: fixed;
   bottom: 0;
@@ -86,11 +88,21 @@ body {
 
 .filter-item,
 .text-item,
+.shapes-item,
 .draw-item {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.shapes-item-checkline { flex-direction: row; }
+.text-undo-btn {
+  border: 2px groove white;
+  outline: none;
+  background: transparent;
+  color: #fff;
+  cursor: pointer;
 }
 
 .alert-container {
@@ -99,9 +111,38 @@ body {
   left: 60px;
   width: calc(100vw - 120px);
   height: 60px;
+  overflow: auto;
 }
-
+.alert-container > div { user-select: none;}
 .info { background-color: #0dcaf0; color: black; }
 .error { background-color: #dc3545; }
 .extra { background-color: #6c757d; }
 .info, .error, .extra { padding: 0.25rem; border-bottom: 1px solid white; cursor: pointer; }
+
+.side-ul {
+  margin: 0;
+  list-style-type: none;
+  display: flex;
+  justify-content: space-between;
+  flex: 1;
+  padding: 0;
+}
+.side-li {
+  display: flex;
+  margin: 0;
+  justify-content: center;
+  align-items :center;
+  flex: 1;
+  cursor: pointer;
+  user-select: none;
+}
+
+.export-btn {
+  background: transparent;
+  color: lightgreen;
+  outline: none;
+  border: 1px solid lightgreen;
+  padding: 0.4rem 1rem;
+  border-radius: 0.25rem;
+  cursor: pointer;
+}
