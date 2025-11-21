@@ -6,7 +6,7 @@ const INIT_DIMS = { startX: null, startY: null, endX: null, endY: null }
 const CIRCLE_DIMS = { startX: null, startY: null, radius: null }
 const DRAW_RECT_DIMS = { startX: null, startY: null, width: null, height: null }
 
-function ImageContainer({ imageUrl, setImageUrl, selectedOption, setSelectedOption, size, setSize }) {
+function ImageContainer({ imageUrl, setImageUrl, selectedOption, setSelectedOption, size, setSize, back }) {
   const imgRef = useRef(null);
   const [texts, setTexts] = useState(() => []);
   // eslint-disable-next-line
@@ -46,12 +46,7 @@ function ImageContainer({ imageUrl, setImageUrl, selectedOption, setSelectedOpti
     textBaseline: canvasTextBaseline[0],
     lineWidth: 3
   }))
-
-  const undo = () => {
-    const canvas = imgRef.current;
-    const ctx = canvas.getContext('2d');
-    ctx.restore();
-  }
+  const undo = () => back();
 
   useEffect(() => {
     if (selectedOption === "text") addAlert("Double click on the image to add a text field there.", "info");

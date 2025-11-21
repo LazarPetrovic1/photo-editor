@@ -14,7 +14,7 @@ const newDivStyles = {
 
 function App() {
   const [selectedOption, setSelectedOption] = useState(() => null)
-  const [imageUrl, setImageUrl] = useHistoryState(() => "");
+  const [imageUrl, setImageUrl, { back }] = useHistoryState(() => "");
   const [extension, setExtension] = useState(() => "png");
   const hasImage = !!imageUrl;
   const [size, setSize] = useState(() => ({
@@ -96,7 +96,7 @@ function App() {
             </div>
           </div>
         </div>
-      ) : <ImageContainer size={size} setSize={setSize} extension={extension} setImageUrl={setImageUrl} imageUrl={imageUrl} selectedOption={selectedOption} setSelectedOption={setSelectedOption} />}
+      ) : <ImageContainer back={back} size={size} setSize={setSize} extension={extension} setImageUrl={setImageUrl} imageUrl={imageUrl} selectedOption={selectedOption} setSelectedOption={setSelectedOption} />}
     </div>
   );
 }
