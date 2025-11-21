@@ -1,23 +1,26 @@
 import { useContext, useEffect, useRef, useState } from "react";
-import { canvasFontFamilies, canvasTextAlign, canvasTextBaseline, log1, log2, log3, log4, log5, log6 } from "../utils";
+import { canvasFontFamilies, canvasTextAlign, canvasTextBaseline } from "../utils";
 import { AlertContext } from "../contexts/AlertContext";
 
 const INIT_DIMS = { startX: null, startY: null, endX: null, endY: null }
 const CIRCLE_DIMS = { startX: null, startY: null, radius: null }
 const DRAW_RECT_DIMS = { startX: null, startY: null, width: null, height: null }
 
-function ImageContainer({ imageUrl, setImageUrl, selectedOption, setSelectedOption }) {
+function ImageContainer({ imageUrl, setImageUrl, selectedOption, setSelectedOption, size, setSize }) {
   const imgRef = useRef(null);
   const [texts, setTexts] = useState(() => []);
-  const [drawlines, setDrawlines] = useState(() => []);
+  // eslint-disable-next-line
+  const [_, setDrawlines] = useState(() => []);
   const [isDrawing, setIsDrawing] = useState(() => false);
   const [isBlurring, setIsBlurring] = useState(() => false);
   const [isShapeFilled, setIsShapeFilled] = useState(() => true);
   const [shape, setShape] = useState(() => "");
-  const [circles, setCircles] = useState(() => []);
+  // eslint-disable-next-line
+  const [__, setCircles] = useState(() => []);
   const [circleStart, setCircleStart] = useState(() => CIRCLE_DIMS);
   const [rectStart, setRectStart] = useState(() => DRAW_RECT_DIMS);
-  const [rects, setRects] = useState(() => []);
+  // eslint-disable-next-line
+  const [___, setRects] = useState(() => []);
   const [scale, setScale] = useState(() => 1);
   const [obfuscation, setObfuscation] = useState(() => 10);
   const [isCropping, setIsCropping] = useState(() => false);
@@ -77,25 +80,25 @@ function ImageContainer({ imageUrl, setImageUrl, selectedOption, setSelectedOpti
     }
   }, [imageUrl]);
 
-  // const addDrawingToCanvas = () => {
-  //   const ctx = imgRef.current.getContext('2d');
-  //   drawlines.forEach((dl) => {
-  //     ctx.strokeStyle = dl.strokeStyle;
-  //     ctx.lineWidth = dl.lineWidth;
-  //     ctx.lineTo(dl.offsetX, dl.offsetY);
-  //     ctx.stroke();
-  //     // imgRef.current.toBlob((blob) => {
-  //     //   const url = URL.createObjectURL(blob);
-  //     //   setImageUrl(() => url);
-  //     // }, 'image/png')
-  //   });
-  // }
-
   const saveCurrentImageState = () => {
     imgRef.current.toBlob((blob) => {
       const url = URL.createObjectURL(blob);
       setImageUrl(() => url);
-    }, 'image/png');
+    }, `image/png`);
+  }
+
+  function resizeCanvas() {
+    const canvas = imgRef.current;
+    const ctx = canvas.getContext('2d');
+    const tempCanvas = document.createElement('canvas');
+    tempCanvas.width = canvas.width;
+    tempCanvas.height = canvas.height;
+    const tempCtx = tempCanvas.getContext('2d');
+    tempCtx.drawImage(canvas, 0, 0);
+    canvas.width = size.width;
+    canvas.height = size.height;
+    ctx.drawImage(tempCanvas, 0, 0, size.width, size.height);
+    saveCurrentImageState();
   }
 
   const renderCanvas = () => {
@@ -706,6 +709,39 @@ function ImageContainer({ imageUrl, setImageUrl, selectedOption, setSelectedOpti
           <input min={5} max={100} step={1} type="number" value={obfuscation} onChange={e => setObfuscation(() => parseInt(e.target.value))} name="blur"  id="blur" />
           <button onClick={acceptBlur} className="button">&#10003; Yes</button>
           <button onClick={cancelCrop} className="button">&#10539; No</button>
+        </div>
+      )}
+      {selectedOption === "resize" && (
+        <div className="resize-controls">
+          <div className="resize-item">
+            <label style={{ fontSize: "10px" }} htmlFor="wdt">Width</label>
+            <input
+              type="number"
+              onChange={e => setSize((prev) => ({ ...prev, width: parseInt(e.target.value) }))}
+              value={size.width}
+              min={50}
+              max={5000}
+              step={1}
+              name="wdt"
+              id="wdt"
+            />
+            <span style={{ fontSize: "10px" }}>{size.width}px</span>
+          </div>
+          <div className="resize-item">
+            <label style={{ fontSize: "10px" }} htmlFor="hght">Height</label>
+            <input
+              type="number"
+              onChange={e => setSize((prev) => ({ ...prev, height: parseInt(e.target.value) }))}
+              value={size.height}
+              min={50}
+              max={5000}
+              step={1}
+              name="hght"
+              id="hght"
+            />
+            <span style={{ fontSize: "10px" }}>{size.height}px</span>
+          </div>
+          <button onClick={resizeCanvas} className="button">Resize</button>
         </div>
       )}
     </div>

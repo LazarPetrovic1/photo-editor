@@ -15,6 +15,7 @@ const newDivStyles = {
 function App() {
   const [selectedOption, setSelectedOption] = useState(() => null)
   const [imageUrl, setImageUrl] = useHistoryState(() => "");
+  const [extension, setExtension] = useState(() => "png");
   const hasImage = !!imageUrl;
   const [size, setSize] = useState(() => ({
     height: 300,
@@ -61,7 +62,7 @@ function App() {
   
   return (
     <div>
-      {hasImage && <SideBar navbarContent={TOP_NAV_CNTNT} setSelectedOption={setSelectedOption} options={topNavOptions} />}
+      {hasImage && <SideBar extension={extension} setExtension={setExtension} navbarContent={TOP_NAV_CNTNT} setSelectedOption={setSelectedOption} options={topNavOptions} />}
       <AlertContainer />
       {!imageUrl ? (
         <div className="image-picker">
@@ -95,7 +96,7 @@ function App() {
             </div>
           </div>
         </div>
-      ) : <ImageContainer setImageUrl={setImageUrl} imageUrl={imageUrl} selectedOption={selectedOption} setSelectedOption={setSelectedOption} />}
+      ) : <ImageContainer size={size} setSize={setSize} extension={extension} setImageUrl={setImageUrl} imageUrl={imageUrl} selectedOption={selectedOption} setSelectedOption={setSelectedOption} />}
     </div>
   );
 }

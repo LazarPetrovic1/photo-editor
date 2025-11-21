@@ -6,5 +6,6 @@
 + ~~Blank canvas image~~
 + ~~Add rectangle & circle~~
 + ~~Blur parts of image~~
-+ Resize to custom height & width
 + ~~Export and save img~~
++ ~~Multiple export formats~~
++ ~~Resize to custom height & width~~

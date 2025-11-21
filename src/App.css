@@ -70,6 +70,7 @@ body {
 .text-controls,
 .shapes-controls,
 .blur-controls,
+.resize-controls,
 .draw-controls {
   position: fixed;
   bottom: 0;
@@ -89,6 +90,7 @@ body {
 .filter-item,
 .text-item,
 .shapes-item,
+.resize-item,
 .draw-item {
   display: flex;
   flex-direction: column;
@@ -141,8 +143,18 @@ body {
   background: transparent;
   color: lightgreen;
   outline: none;
-  border: 1px solid lightgreen;
-  padding: 0.4rem 1rem;
+  border: none;
+  padding: 0.4rem 0.5rem;
   border-radius: 0.25rem;
+  border: 1px solid lightgreen;
   cursor: pointer;
+  margin-right: 0.5rem;
 }
+
+.export-block {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.export-block > select { max-width: 100px; }
