@@ -9,3 +9,4 @@
 + ~~Export and save img~~
 + ~~Multiple export formats~~
 + ~~Resize to custom height & width~~
++ ~~Add undo functionality~~
